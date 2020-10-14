@@ -1,39 +1,34 @@
-const charactersList = document.getElementById('charactersList');
-const searchBar = document.getElementById('searchBar');
-let hpCharacters = [];
 
-searchBar.addEventListener('keyup', (e) => {
-    const searchString = e.target.value.toLowerCase();
-
-    const filteredCharacters = hpCharacters.filter((character) => {
+    const filteredCharacters = hpCharacters.filter((character) => { // filtrar los caracteres
         return (
-            character.name.toLowerCase().includes(searchString) ||
-            character.house.toLowerCase().includes(searchString)
+            character.name.toLowerCase().includes(searchString) || // Mostrar el nombre del caracter
+            character.house.toLowerCase().includes(searchString) // Mostrar la casa del caracter
         );
     });
-    displayCharacters(filteredCharacters);
+    displayCharacters(filteredCharacters); // Mostrar los caracteres
 });
 
-const loadCharacters = async () => {
+const loadCharacters = async () => { // Función asyncrona para llamara a la api
     try {
-        const res = await fetch('https://hp-api.herokuapp.com/api/characters');
-        hpCharacters = await res.json();
-        displayCharacters(hpCharacters);
+        const res = await fetch('https://hp-api.herokuapp.com/api/characters'); // await url de la api
+        hpCharacters = await res.json(); // await al json
+        displayCharacters(hpCharacters); // mostrar los carácteres
     } catch (err) {
-        console.error(err);
+        console.error(err); // mandar error
     }
 };
 
-const displayCharacters = (characters) => {
+const displayCharacters = (characters) => { // Función mostrar los carácteres
     const htmlString = characters
         .map((character) => {
             return `
             <li class="character">
                 <h2>${character.name}</h2>
-                <p>Casa: ${character.house}</p></br>
+                <p> </br> Casa: ${character.house}</br>
+                Cumpleaños: ${character.dateOfBirth}</br>
+                Actor: ${character.actor}</br></p>
                 <img src="${character.image}"></img>
                 
-
             </li>
         `;
         })
@@ -41,4 +36,4 @@ const displayCharacters = (characters) => {
     charactersList.innerHTML = htmlString;
 };
 
-loadCharacters();
+loadCharacters(); // Cargar los carácteres
