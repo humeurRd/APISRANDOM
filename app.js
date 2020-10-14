@@ -1,3 +1,9 @@
+const charactersList = document.getElementById('charactersList'); // Obtener id de la lista
+const searchBar = document.getElementById('searchBar'); // Obtener id de la barra de búsqueda
+let hpCharacters = []; // Array de caracteres
+
+searchBar.addEventListener('keyup', (e) => {
+    const searchString = e.target.value.toLowerCase(); // Valor buscado a minúsculas
 
     const filteredCharacters = hpCharacters.filter((character) => { // filtrar los caracteres
         return (
